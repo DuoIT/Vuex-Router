@@ -1,9 +1,17 @@
 <template>
   <div id="app">
-    <ComHeader v-bind:title="title"/>
 
-    <ListUser v-bind:listUser="listUser"/>
+    <button v-on:click="title='Dora'">Change</button>
+    <ComHeader v-bind:title="title"
+    v-on:changeTitleEvent="changeTitleHeader"/>
 
+    <ListUser v-bind:listUser="listUser"
+    v-on:mainDelete="mainDelete"
+    v-on:mainChange="mainChange"
+    v-on:mainBack="mainBack"/>
+<br/>
+    <DemoRef/>
+<br/>
     <ComFooter v-bind:title="title"/>
   </div>
 </template>
@@ -12,6 +20,7 @@
 import ComHeader from './components/ComHeader'
 import ComFooter from './components/ComFooter'
 import ListUser from './components/ListUser'
+import DemoRef from './components/Ref'
 export default {
   name: 'app',
   data () {
@@ -29,8 +38,61 @@ export default {
   components: {
     ComHeader,
     ComFooter,
-    ListUser
-  }
+    ListUser,
+    DemoRef
+  },
+  methods: {
+    changeTitleHeader(data){
+      this.title = data.title
+      console.log('change success', data);
+    },
+    mainDelete(data){
+      var indexDelete = -1
+      this.listUser.forEach((u, idx) => {
+        console.log(u.id, idx, data.id);
+          if(u.id === data.id)
+          {
+            indexDelete = idx
+          }
+        console.log(u);
+      });
+      if(indexDelete != -1){
+        this.listUser.splice(indexDelete, 1)
+      }
+      console.log('delete trong app.vue', data);
+    },
+    mainChange(data) {
+      var indexChange = -1
+      this.listUser.forEach((c, idx) => {
+          console.log(c.id, idx, data.id);
+          if(c.id === data.id)
+          {
+              indexChange = idx
+          }
+      })
+      if(indexChange != -1)
+      {
+          this.listUser.name = data.name
+      }
+      console.log('day la app.vue', data);
+    },
+    mainBack(data) {
+      var indexBack = -1
+      this.listUser.forEach((b, idx) => {
+        console.log(b.id, idx, indexBack.id);
+        if(b.id === indexBack)
+        {
+              indexBack = idx
+        }
+      })
+      if(indexBack != -1)
+      {
+          this.listUser.name = data.name
+      }
+      console.log('day la app.vue', data);
+
+    }
+  },
 }
 </script>
 
