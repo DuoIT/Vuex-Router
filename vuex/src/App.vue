@@ -4,7 +4,7 @@
     <button v-on:click="title='Dora'">Change</button>
     <ComHeader v-bind:title="title"
     v-on:changeTitleEvent="changeTitleHeader"/>
-
+  <div class="container">
     <ListUser v-bind:listUser="listUser"
     v-on:mainDelete="mainDelete"
     v-on:mainChange="mainChange"
@@ -12,6 +12,8 @@
 <br/>
     <DemoRef/>
 <br/>
+    <ListTab/>
+    </div>
     <ComFooter v-bind:title="title"/>
   </div>
 </template>
@@ -21,6 +23,7 @@ import ComHeader from './components/ComHeader'
 import ComFooter from './components/ComFooter'
 import ListUser from './components/ListUser'
 import DemoRef from './components/Ref'
+import ListTab from './components/ListTab'
 export default {
   name: 'app',
   data () {
@@ -39,7 +42,8 @@ export default {
     ComHeader,
     ComFooter,
     ListUser,
-    DemoRef
+    DemoRef,
+    ListTab
   },
   methods: {
     changeTitleHeader(data){
@@ -93,6 +97,23 @@ export default {
 
     }
   },
+  beforeCreate() {
+    console.log('beforaCreate', this.title, document.querySelector('.container'))
+  },
+  created() {
+    // goi API
+    console.log('created', this.title, document.querySelector('.container'))
+  },
+  beforeMount() {
+    console.log('beforeMount', this.title, document.querySelector('.container'))
+  },
+  mounted() {
+    console.log('mounted', this.title, document.querySelector('.container'))
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy', this.title, document.querySelector('.container'))
+  },
+
 }
 </script>
 
